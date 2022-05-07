@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.text import slugify
 
+from members.models import Member
+
 
 class UserManager(BaseUserManager):
     def _create_user(self, email, password, **extra_fields):
@@ -14,6 +16,11 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
         user.save()
+
+        Member.objects.create(
+            name="%s %s" % (user.first_name, user.last_name),
+            user=user,
+        )
 
         return user
 

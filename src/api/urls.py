@@ -18,6 +18,7 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path, re_path
 from django.views.static import serve
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -36,6 +37,11 @@ token_obtain_pair = TokenObtainPairView.as_view()
 token_refresh = TokenRefreshView.as_view()
 token_verify = TokenVerifyView.as_view()
 
+# DRF Spectacular Swagger
+# ----------------------------------------------------------------------------
+schema = SpectacularAPIView.as_view()
+swagger = SpectacularSwaggerView.as_view(url_name="schema")
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     # Media Contents
@@ -50,4 +56,8 @@ urlpatterns = [
     path("auth/token/", token_obtain_pair, name="token_obtain_pair"),
     path("auth/token/refresh/", token_refresh, name="token_refresh"),
     path("auth/token/verify/", token_verify, name="token_verify"),
+    # Swagger
+    # ------------------------------------------------------------------------
+    path("docs/", swagger, name="swagger-ui"),
+    path("docs/generate/", schema, name="schema"),
 ]

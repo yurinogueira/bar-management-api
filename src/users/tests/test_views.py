@@ -8,6 +8,8 @@ from model_bakery import baker
 import pytest
 from rest_framework import status
 
+from users.models import User
+
 
 @pytest.mark.django_db
 class TestResetPasswordViewSet:
@@ -38,9 +40,30 @@ class TestResetPasswordViewSet:
 
 @pytest.mark.django_db
 class TestUserViewSet:
+    @pytest.fixture
+    def o_member(self):
+        return baker.make_recipe(
+            "members.tests.member",
+            user=baker.make_recipe("users.tests.user"),
+        )
+
+    @pytest.fixture
+    def company(self):
+        return baker.make_recipe("companies.tests.company")
+
     def test_get(self, api_client, user):
         """Ensure that when a valid username, user is retrieved"""
         url = reverse("users:user-detail", args=[user.username])
+        response = api_client.get(url)
+
+        assert response.status_code == status.HTTP_200_OK
+
+    def test_get_same_company(self, api_client, user, company, o_member):
+        """Ensure that when in same company, user is retrieved"""
+        company.member_set.add(user.member)
+        company.member_set.add(o_member)
+
+        url = reverse("users:user-detail", args=[o_member.user.username])
         response = api_client.get(url)
 
         assert response.status_code == status.HTTP_200_OK
@@ -70,4 +93,36 @@ class TestUserViewSet:
         url = reverse("users:user-detail", args=[debug_user.username])
         response = api_client.get(url)
 
+        assert response.status_code == status.HTTP_200_OK
+
+    def test_list(self, api_client, user):
+        """Ensure that user can retrieve onlyself"""
+        url = reverse("users:user-list")
+        response = api_client.get(url)
+
+        assert response.data["count"] == 1
+        assert response.status_code == status.HTTP_200_OK
+
+    def test_list_same_company(self, api_client, user, company, o_member):
+        """Ensure that when in same company, all users are retrieved"""
+        company.member_set.add(user.member)
+        company.member_set.add(o_member)
+
+        url = reverse("users:user-list")
+        response = api_client.get(url)
+
+        assert response.data["count"] == 2
+        assert response.status_code == status.HTTP_200_OK
+
+    def test_staff_list(self, api_client, user, o_member):
+        """Ensure that a staff can retrieve all users"""
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(update_fields=["is_staff", "is_superuser"])
+
+        baker.make_recipe("users.tests.user")
+        url = reverse("users:user-list")
+        response = api_client.get(url)
+
+        assert response.data["count"] == User.objects.count()
         assert response.status_code == status.HTTP_200_OK

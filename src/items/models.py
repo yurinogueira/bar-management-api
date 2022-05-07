@@ -6,7 +6,6 @@ from django.db import models
 from django.utils import timezone
 
 from core.behaviors import Orderable, Timestampable
-from customers.models import Customer
 
 
 class Item(models.Model):
@@ -25,7 +24,7 @@ class Item(models.Model):
 
 
 class Stock(Orderable):
-    item = models.ForeignKey(Item, on_delete=models.RESTRICT)
+    item = models.ForeignKey("items.Item", on_delete=models.RESTRICT)
     price = models.DecimalField("Preço", max_digits=16, decimal_places=2)
     quantity = models.IntegerField("Quantidade no Estoque", default=0)
 
@@ -43,7 +42,7 @@ class Stock(Orderable):
 
 
 class Sell(Timestampable):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey("customers.Customer", on_delete=models.CASCADE)
     date = models.DateTimeField("Hora da Venda", default=timezone.localtime)
     is_paid = models.BooleanField("Venda Paga", default=True)
     discount = models.DecimalField(

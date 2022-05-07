@@ -1,8 +1,11 @@
-from rest_framework import status, views
-from rest_framework.mixins import RetrieveModelMixin
-from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
+from django.db.models import Prefetch
 
+from rest_framework import status, views
+from rest_framework.response import Response
+from rest_framework.viewsets import ReadOnlyModelViewSet
+
+from companies.models import Company
+from members.models import Member
 from users.models import User
 from users.serializers import ResetPasswordSerializer, UserSerializer
 
@@ -28,8 +31,8 @@ class ResetPasswordViewSet(views.APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class UserViewSet(GenericViewSet, RetrieveModelMixin):
-    queryset = User.objects.all()
+class UserViewSet(ReadOnlyModelViewSet):
+    queryset = User.objects.select_related("member")
     serializer_class = UserSerializer
 
     lookup_field = "username"
@@ -40,4 +43,27 @@ class UserViewSet(GenericViewSet, RetrieveModelMixin):
         queryset = self.queryset
         is_super = user.is_superuser
 
-        return queryset if is_super else queryset.filter(pk=user.pk)
+        if is_super:
+            return queryset
+
+        user = queryset.prefetch_related(
+            Prefetch(
+                "member__companies",
+                queryset=Company.objects.prefetch_related(
+                    Prefetch(
+                        "member_set",
+                        queryset=Member.objects.select_related("user"),
+                        to_attr="prefetched_members",
+                    )
+                ),
+                to_attr="prefetched_companies",
+            )
+        ).get(pk=user.pk)
+
+        pks = [
+            member.user.pk
+            for company in user.member.prefetched_companies
+            for member in company.prefetched_members
+        ]
+
+        return queryset.filter(pk__in=[*pks, user.pk]).distinct()

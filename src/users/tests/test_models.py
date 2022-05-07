@@ -16,10 +16,11 @@ class TestUserManager:
         password = FAKE.name()
         user = User.objects._create_user(email, password)
 
-        assert user.username == username
+        assert user.member
         assert user.is_active
         assert not user.is_staff
         assert not user.is_superuser
+        assert user.username == username
 
     def test_create_user_with_raise_exception(self):
         email = FAKE.email()

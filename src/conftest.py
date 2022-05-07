@@ -10,8 +10,13 @@ def user():
 
 
 @pytest.fixture
-def token(user):
-    refresh = RefreshToken.for_user(user)
+def member(user):
+    return baker.make_recipe("members.tests.member", user=user)
+
+
+@pytest.fixture
+def token(member):
+    refresh = RefreshToken.for_user(member.user)
 
     return {"refresh": str(refresh), "access": str(refresh.access_token)}
 
