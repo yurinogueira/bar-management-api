@@ -67,4 +67,3 @@ class TestResetPasswordSerializer:
 
         with pytest.raises(serializers.ValidationError):
             serializer.is_valid(raise_exception=True)
-

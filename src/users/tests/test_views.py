@@ -1,9 +1,10 @@
 from unittest import mock
 
-import jwt
-import pytest
 from django.conf import settings
 from django.urls import reverse
+
+import jwt
+import pytest
 from rest_framework import status
 
 
