@@ -20,6 +20,6 @@ def token(user):
 def api_client(token):
     access = token.get("access")
     client = APIClient()
-    client.credentials(HTTP_AUTHORIZATION=f"JWT {access}")
+    client.credentials(HTTP_AUTHORIZATION=f"Bearer {access}")
 
     return client

@@ -35,3 +35,21 @@ class ResetPasswordSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("Token inválido")
 
         return is_valid
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        read_only_fields = (
+            "username",
+            "is_superuser",
+            "date_joined",
+        )
+        exclude = (
+            "id",
+            "password",
+            "is_staff",
+            "is_active",
+            "last_login",
+            "user_permissions",
+        )

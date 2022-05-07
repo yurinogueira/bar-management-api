@@ -1,8 +1,10 @@
 from rest_framework import status, views
+from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
 from users.models import User
-from users.serializers import ResetPasswordSerializer
+from users.serializers import ResetPasswordSerializer, UserSerializer
 
 
 class ResetPasswordViewSet(views.APIView):
@@ -24,3 +26,18 @@ class ResetPasswordViewSet(views.APIView):
         user.save(update_fields=["password"])
 
         return Response(status=status.HTTP_200_OK)
+
+
+class UserViewSet(GenericViewSet, RetrieveModelMixin):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    lookup_field = "username"
+    lookup_value_regex = "[\\w.@+-]+"
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = self.queryset
+        is_super = user.is_superuser
+
+        return queryset if is_super else queryset.filter(pk=user.pk)
