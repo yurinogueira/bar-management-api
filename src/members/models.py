@@ -11,7 +11,7 @@ class Member(Timestampable):
     companies = models.ManyToManyField(Company)
 
     class Meta:
-        ordering = ("-id",)
+        ordering = ("name",)
         verbose_name = "Membro"
         verbose_name_plural = "Membros"
 
