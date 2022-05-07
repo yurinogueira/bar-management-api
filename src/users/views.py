@@ -66,4 +66,4 @@ class UserViewSet(ReadOnlyModelViewSet):
             for member in company.prefetched_members
         ]
 
-        return queryset.filter(pk__in=[*pks, user.pk]).distinct()
+        return queryset.filter(pk__in=[*pks, user.pk])
