@@ -24,7 +24,7 @@ development:
 	docker compose run --rm --service-ports web python manage.py runserver 0:8000
 
 createsuperuser:
-	docker compose run --rm web python manage.py createsuperuser
+	docker compose run --rm web python manage.py createsuperuser $(args)
 
 manage:
 	docker compose run --rm web python manage.py $(args)

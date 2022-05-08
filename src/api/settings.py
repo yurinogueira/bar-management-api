@@ -236,7 +236,6 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "Bar Management API Details",
     "VERSION": "1.0.0",
     "CAMELIZE_NAMES": True,
-    "SERVERS": [{"url": API_DOMAIN}],
     "POSTPROCESSING_HOOKS": [
         "drf_spectacular.contrib.djangorestframework_camel_case.camelize_serializer_fields",
     ],
