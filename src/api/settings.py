@@ -146,6 +146,7 @@ CACHES = {
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 AUTH_USER_MODEL = "users.User"
+USER_MODEL_NAME = "user"
 
 AUTH_PASSWORD_VALIDATORS = [
     {

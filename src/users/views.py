@@ -1,10 +1,8 @@
-from django.db.models import Prefetch
-
 from rest_framework import status, views
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from companies.models import Company
+from core.utils import related_queryset
 from members.models import Member
 from users.models import User
 from users.serializers import ResetPasswordSerializer, UserSerializer
@@ -39,31 +37,10 @@ class UserViewSet(ReadOnlyModelViewSet):
     lookup_value_regex = "[\\w.@+-]+"
 
     def get_queryset(self):
-        user = self.request.user
-        queryset = self.queryset
-        is_super = user.is_superuser
-
-        if is_super:
-            return queryset
-
-        user = queryset.prefetch_related(
-            Prefetch(
-                "member__companies",
-                queryset=Company.objects.prefetch_related(
-                    Prefetch(
-                        "member_set",
-                        queryset=Member.objects.select_related("user"),
-                        to_attr="prefetched_members",
-                    )
-                ),
-                to_attr="prefetched_companies",
-            )
-        ).get(pk=user.pk)
-
-        pks = [
-            member.user.pk
-            for company in user.member.prefetched_companies
-            for member in company.prefetched_members
-        ]
-
-        return queryset.filter(pk__in=[*pks, user.pk])
+        return related_queryset(
+            self.queryset,
+            self.request.user,
+            Member.objects.select_related("user"),
+            "member__companies",
+            lambda x: x.user.pk,
+        )
