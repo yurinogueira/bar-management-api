@@ -13,6 +13,8 @@ from users.models import User
 
 @pytest.mark.django_db
 class TestResetPasswordViewSet:
+    SERIALIZER_PATH = "users.views.ResetPasswordViewSet.serializer_class"
+
     @pytest.fixture
     def payload(self, user):
         secret = settings.SECRET_KEY
@@ -24,7 +26,7 @@ class TestResetPasswordViewSet:
 
     @pytest.fixture
     def m_serializer(self, user, payload):
-        with mock.patch("users.serializers.ResetPasswordSerializer") as mocked:
+        with mock.patch(self.SERIALIZER_PATH) as mocked:
             mocked.is_valid.return_value = True
             mocked.data.return_value = payload
             mocked.instance.return_value = user

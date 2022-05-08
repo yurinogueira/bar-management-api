@@ -1,5 +1,9 @@
+SELLER = "seller"
+MANAGER = "manager"
+ACCOUNTANT = "accountant"
+
 FUNCTIONS = (
-    ("manager", "Gerente"),
-    ("seller", "Balconista"),
-    ("accountant", "Contabilista"),
+    (SELLER, "Balconista"),
+    (MANAGER, "Gerente"),
+    (ACCOUNTANT, "Contabilista"),
 )

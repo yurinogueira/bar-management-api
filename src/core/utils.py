@@ -1,9 +1,10 @@
 from django.db.models import Prefetch
 
 from companies.models import Company
+from members.models import Member
 
 
-def related_queryset(queryset, user, p_queryset, r_prefetch, pk_get):
+def related_queryset(queryset, user, r_prefetch, pk_get, model_get):
     if user.is_superuser:
         return queryset
 
@@ -14,7 +15,7 @@ def related_queryset(queryset, user, p_queryset, r_prefetch, pk_get):
             queryset=Company.objects.prefetch_related(
                 Prefetch(
                     "member_set",
-                    queryset=p_queryset,
+                    queryset=Member.objects.select_related("user"),
                     to_attr="prefetched_members",
                 )
             ),
@@ -24,7 +25,7 @@ def related_queryset(queryset, user, p_queryset, r_prefetch, pk_get):
 
     pks = [
         pk_get(member)
-        for company in model.member.prefetched_companies
+        for company in model_get(model).prefetched_companies
         for member in company.prefetched_members
     ]
 

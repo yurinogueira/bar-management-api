@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from core.utils import related_queryset
-from members.models import Member
 from users.models import User
 from users.serializers import ResetPasswordSerializer, UserSerializer
 
@@ -40,7 +39,7 @@ class UserViewSet(ReadOnlyModelViewSet):
         return related_queryset(
             self.queryset,
             self.request.user,
-            Member.objects.select_related("user"),
             "member__companies",
             lambda x: x.user.pk,
+            lambda x: x.member,
         )

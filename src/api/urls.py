@@ -51,6 +51,7 @@ urlpatterns = [
     # Apps
     # ------------------------------------------------------------------------
     path("users/", include(("users.urls", "users")), name="users"),
+    path("members/", include(("members.urls", "members")), name="members"),
     # Authentication
     # ------------------------------------------------------------------------
     path("auth/token/", token_obtain_pair, name="token_obtain_pair"),

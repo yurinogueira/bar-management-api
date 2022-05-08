@@ -10,7 +10,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('companies', '0001_initial'),
     ]
-
     operations = [
         migrations.CreateModel(
             name='Member',
@@ -19,7 +18,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(editable=False, verbose_name='Criado em')),
                 ('updated_at', models.DateTimeField(editable=False, verbose_name='Última atualização em')),
                 ('name', models.CharField(max_length=128, verbose_name='Nome')),
-                ('function', models.CharField(choices=[('manager', 'Gerente'), ('seller', 'Balconista'), ('accountant', 'Contabilista')], max_length=32, verbose_name='Função')),
+                ('function', models.CharField(choices=[('seller', 'Balconista'), ('manager', 'Gerente'), ('accountant', 'Contabilista')], max_length=32, verbose_name='Função')),
                 ('companies', models.ManyToManyField(to='companies.Company')),
             ],
             options={
