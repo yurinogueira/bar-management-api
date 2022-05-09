@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include
 from django.contrib import admin
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import path, re_path
+from django.views.generic import RedirectView
 from django.views.static import serve
 
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
@@ -25,6 +27,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+
+# Admin
+# ---------------------------------------------------------------------------
+favicon = RedirectView.as_view(url=staticfiles_storage.url("favicon.ico"))
 
 # Media Roots
 # ----------------------------------------------------------------------------
@@ -43,7 +49,10 @@ schema = SpectacularAPIView.as_view()
 swagger = SpectacularSwaggerView.as_view(url_name="schema")
 
 urlpatterns = [
+    # Admin
+    # ------------------------------------------------------------------------
     path("admin/", admin.site.urls),
+    path("favicon.ico", favicon),
     # Media Contents
     # ------------------------------------------------------------------------
     re_path(r"^media/(?P<path>.*)$", serve, MEDIA_ROOT),

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="210mm"
+   viewBox="0 0 210 210"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="/projects/bar-management /src/api/static/logo.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.5209506"
+     inkscape:cx="-185.23829"
+     inkscape:cy="428.06362"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="0"
+     inkscape:window-y="31"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     height="296mm" />
+  <defs
+     id="defs2">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 61.499948 : 1"
+       inkscape:vp_y="0 : 999.99988 : 0"
+       inkscape:vp_z="210 : 61.499948 : 1"
+       inkscape:persp3d-origin="105 : 11.999997 : 1"
+       id="perspective9505" />
+    <marker
+       style="overflow:visible"
+       id="DotL"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="DotL"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.8,0,0,0.8,5.92,0.8)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         id="path8599" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="SquareM"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="SquareM"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.4)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M -5,-5 V 5 H 5 V -5 Z"
+         id="path8611" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path8538" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="spiral"
+       style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:18.7654;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path799"
+       sodipodi:cx="211.69707"
+       sodipodi:cy="477.64975"
+       sodipodi:expansion="1"
+       sodipodi:revolution="4.8306479"
+       sodipodi:radius="903.31348"
+       sodipodi:argument="-14.949464"
+       sodipodi:t0="0.093115047"
+       d="M 287.68541,513.71376 C 281.19217,576.5083 212.30278,608.52448 155.58886,595.87205 70.00936,576.77994 28.458951,481.59813 51.240813,401.49734 82.070818,293.09935 204.57714,241.72302 307.89368,274.95954 439.16265,317.18824 500.47153,467.43209 456.62123,593.89056 403.15955,748.06699 224.9728,819.3615 75.412052,764.80787 -101.69613,700.20606 -183.00727,493.9594 -117.695,321.32053 -42.010156,121.26399 192.36944,29.916346 388.07048,106.02372 611.08712,192.75403 712.48486,455.31526 625.55705,674.06737 527.80731,920.05264 237.03034,1031.5102 -4.7647527,933.74368 -273.72507,824.99328 -395.24967,505.97575 -286.63082,241.14373 -166.89373,-50.796539 180.38301,-182.3937 468.24729,-62.912094 783.17135,67.801007 924.84538,443.35132 794.49287,754.24417 652.8121,1092.1551 248.97693,1243.9094 -84.941558,1102.6795 -445.84181,950.03773 -607.6792,517.90865 -455.56664,160.96692 -290.54921,-226.25688 165.12803,-396.2773 548.42409,-231.84791 958.84325,-55.783043 1138.8444,427.90289 963.42868,834.42098 776.3201,1268.0368 264.62026,1458.0203 -165.11836,1271.6153 -390.92278,1173.6696 -568.1193,981.32742 -649.77073,749.40049"
+       transform="matrix(0.06839875,-0.25759886,0.27203429,0.06476918,-162.54814,117.09617)"
+       inkscape:transform-center-x="0.17491202"
+       inkscape:transform-center-y="-0.063751775"
+       inkscape:export-filename="/projects/bar-management /src/api/static/logo.png"
+       inkscape:export-xdpi="95.527946"
+       inkscape:export-ydpi="95.527946" />
+    <path
+       style="fill:#2eb63b;stroke-width:5.42936"
+       d=""
+       id="path2799"
+       transform="scale(0.26458333)" />
+    <path
+       style="fill:#2eb63b;stroke-width:1.35734"
+       d=""
+       id="path2986"
+       transform="scale(0.26458333)" />
+  </g>
+</svg>
