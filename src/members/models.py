@@ -8,7 +8,7 @@ class Member(Timestampable):
     user = models.OneToOneField("users.User", on_delete=models.CASCADE)
     name = models.CharField("Nome", max_length=128)
     function = models.CharField("Função", choices=FUNCTIONS, max_length=32)
-    companies = models.ManyToManyField("companies.Company")
+    companies = models.ManyToManyField("companies.Company", blank=True)
 
     class Meta:
         ordering = ("name",)
