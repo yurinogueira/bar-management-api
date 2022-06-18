@@ -50,7 +50,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
+
       - name: Install dependencies
+        working-directory: ./src
         run: pip install -r requirements.txt
 
       - name: isort
@@ -66,6 +68,8 @@ jobs:
         run: mypy . --exclude migrations
 
       - name: test
+        working-directory: ./src
+        run: pytest --cov
         env:
           DEBUG: True
           RELEASE: CI
@@ -74,7 +78,4 @@ jobs:
           ELASTICSEARCH_HOSTS: elasticsearch://localhost:9200
           CACHES_DEFAULT_URL: redis://localhost:6379/0
           CACHES_SESSIONS_URL: redis://localhost:6379/1
-          CELERY_BROKER_URL: redis://redis:6379/2
           CSRF_TRUSTED_ORIGINS: http://localhost:8000
-        working-directory: ./src
-        run: pytest --cov
