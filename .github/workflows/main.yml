@@ -7,25 +7,27 @@ on:
 
 jobs:
   build:
+    name: Deploy
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-    - name: login
-      uses: actions/heroku@master
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      with:
-        args: container:login
+      - name: login
+        uses: actions/heroku@master
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        with:
+          args: container:login
 
-    - name: set remote
-      working-directory: "./src"
-      run: git remote set-url origin https://heroku:$API_KEY@git.heroku.com/$APP_NAME.git
-      env:
-        APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-        API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - name: set remote
+        working-directory: "./src"
+        run: git remote set-url origin https://heroku:$API_KEY@git.heroku.com/$APP_NAME.git
+        env:
+          APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+          API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
-    - name: push and deploy
-      working-directory: "./src"
-      run: git push origin HEAD:master -f
+      - name: push and deploy
+        working-directory: "./src"
+        run: git push origin HEAD:master -f
