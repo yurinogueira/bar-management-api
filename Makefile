@@ -29,18 +29,6 @@ createsuperuser:
 manage:
 	docker compose run --rm web python manage.py $(args)
 
-
-# Queue
-# -----------------------------------------------------------------------------
-worker:
-	docker compose run --rm web celery -A api worker -l INFO
-
-worker-purger:
-	docker compose run --rm web celery -A api purge -f
-
-beat:
-	docker compose run --rm web celery -A api beat -l INFO
-
 # Test and Code Quality
 # -----------------------------------------------------------------------------
 test:
