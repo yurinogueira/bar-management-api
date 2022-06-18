@@ -1,0 +1,80 @@
+name: Test and Code Quality
+
+on:
+  push:
+    branches:
+      - dev
+      - "dependabot/**"
+      - "refactor/**"
+      - "feature/**"
+      - "hotfix/**"
+      - "chore/**"
+
+jobs:
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis:7-bullseye
+        volumes:
+          - redisdata:/data
+        ports:
+          - 6379:6379
+
+      postgres:
+        image: postgres:14-bullseye
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: isort
+        working-directory: ./src
+        run: isort --diff --check-only .
+
+      - name: black
+        working-directory: ./src
+        run: black --check .
+
+      - name: mypy
+        working-directory: ./src
+        run: mypy . --exclude migrations
+
+      - name: test
+        env:
+          DEBUG: True
+          RELEASE: CI
+          DATABASE_DEFAULT_URL: postgres://postgres:postgres@localhost:5432/postgres?conn_max_age=600
+          POSTGRES_PASSWORD: postgres
+          ELASTICSEARCH_HOSTS: elasticsearch://localhost:9200
+          CACHES_DEFAULT_URL: redis://localhost:6379/0
+          CACHES_SESSIONS_URL: redis://localhost:6379/1
+          CELERY_BROKER_URL: redis://redis:6379/2
+          CSRF_TRUSTED_ORIGINS: http://localhost:8000
+        working-directory: ./src
+        run: pytest --cov
