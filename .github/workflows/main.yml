@@ -14,20 +14,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: login
-        uses: actions/heroku@master
+      - name: Login to Heroku Container registry
+        working-directory: "./src"
+        run: heroku container:login
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        with:
-          args: container:login
 
-      - name: set remote
+      - name: Build and push
         working-directory: "./src"
-        run: git remote set-url origin https://heroku:$API_KEY@git.heroku.com/$APP_NAME.git
+        run: heroku container:push -a appname yurinogueira-bm
         env:
-          APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-          API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
-      - name: push and deploy
+      - name: Release
         working-directory: "./src"
-        run: git push origin HEAD:master -f
+        run: heroku container:release -a yurinogueira-bm web
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
