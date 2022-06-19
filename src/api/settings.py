@@ -62,6 +62,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -92,15 +93,17 @@ TEMPLATES = [
 # ---------------------------------------------------------------------------------------------------------------------
 ROOT_URLCONF = "api.urls"
 WSGI_APPLICATION = "api.wsgi.application"
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_MANIFEST_STRICT = False
+WHITENOISE_ALLOW_ALL_ORIGINS = True
 
 
 # DIRECTORY SETTINGS
 # ---------------------------------------------------------------------------------------------------------------------
 STATIC_URL = urllib.parse.urljoin(env.str("STATIC_HOST", default=""), "/static/")
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "api/static"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "api/static")]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 MEDIA_HOST = env.str("MEDIA_HOST", default="")
 MEDIA_URL = env.str("MEDIA_URL", default="/media/")
