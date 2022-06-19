@@ -11,15 +11,6 @@ services:
       - bm-api-network
     env_file: ./config/.env
 
-  redis:
-    image: redis:7-bullseye
-    container_name: bm-api-redis-container
-    volumes:
-      - bm-redisdata:/data
-    networks:
-      - bm-api-network
-    env_file: ./config/.env
-
   web:
     build:
       context: src/
@@ -34,7 +25,6 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
-      - redis
     networks:
       - bm-api-network
       - bm-api-proxy-network
@@ -47,5 +37,4 @@ networks:
 
 volumes:
   bm-pgdata:
-  bm-redisdata:
   bm-django-static:
