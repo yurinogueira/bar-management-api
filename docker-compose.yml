@@ -1,8 +1,8 @@
-version: "3.8"
+version: "3.9"
 
 services:
   postgres:
-    image: postgres:14-bullseye
+    image: postgres:13-bullseye
     container_name: bm-api-postgres-container
     restart: unless-stopped
     volumes:
@@ -38,8 +38,7 @@ services:
     networks:
       - bm-api-network
       - bm-api-proxy-network
-    env_file:
-      - ./config/.env
+    env_file: ./config/.env
 
 networks:
   bm-api-proxy-network:
