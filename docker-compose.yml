@@ -23,7 +23,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: src/Dockerfile
     container_name: bm-api-django-container
     restart: "unless-stopped"
     stop_grace_period: "5s"
