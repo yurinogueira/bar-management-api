@@ -29,12 +29,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 SECRET_KEY = env.str("SECRET_KEY", default=get_random_secret_key())
-API_DOMAIN = env.str("API_DOMAIN", default="localhost")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
+ALLOWED_HOSTS = env.list(
+    "ALLOWED_HOSTS",
+    default=["0.0.0.0", "localhost", "127.0.0.1", "yn-bm.herokuapp.com"],
+)
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=["*"])
 
 
@@ -92,17 +94,13 @@ TEMPLATES = [
 # ---------------------------------------------------------------------------------------------------------------------
 ROOT_URLCONF = "api.urls"
 WSGI_APPLICATION = "api.wsgi.application"
-WHITENOISE_USE_FINDERS = True
-WHITENOISE_MANIFEST_STRICT = False
-WHITENOISE_ALLOW_ALL_ORIGINS = True
-
 
 # DIRECTORY SETTINGS
 # ---------------------------------------------------------------------------------------------------------------------
 STATIC_URL = urllib.parse.urljoin(env.str("STATIC_HOST", default=""), "/static/")
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "api/static")]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_HOST = env.str("MEDIA_HOST", default="")
 MEDIA_URL = env.str("MEDIA_URL", default="/media/")
@@ -113,7 +111,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 DATABASES = {
     "default": env.db_url(
-        "DATABASE_DEFAULT_URL",
+        "DATABASE_URL",
         default="sqlite:///{}".format(os.path.join(BASE_DIR, "db.sqlite3")),
     ),
 }
@@ -272,7 +270,3 @@ SIMPLE_JWT = {
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-import django_heroku
-
-django_heroku.settings(locals())

@@ -23,6 +23,9 @@ migrations:
 development:
 	docker compose run --rm --service-ports web python manage.py runserver 0:8000
 
+collectstatic:
+	docker compose run --rm web python manage.py collectstatic --noinput
+
 createsuperuser:
 	docker compose run --rm web python manage.py createsuperuser $(args)
 
@@ -32,22 +35,22 @@ manage:
 # Test and Code Quality
 # -----------------------------------------------------------------------------
 test:
-	docker compose run --rm --no-deps web pytest
+	docker compose run --rm web pytest
 
 _isort:
-	docker compose run --rm --no-deps web isort --diff --check-only .
+	docker compose run --rm web isort --diff --check-only .
 
 _black:
-	docker compose run --rm --no-deps web black --check .
+	docker compose run --rm web black --check .
 
 _mypy:
-	docker compose run --rm --no-deps web mypy . --exclude migrations
+	docker compose run --rm web mypy . --exclude migrations
 
 _isort-clear:
-	docker compose run --rm --no-deps web isort .
+	docker compose run --rm web isort .
 
 _black_fix:
-	docker compose run --rm --no-deps web black .
+	docker compose run --rm web black .
 
 lint: _isort _black _mypy
 format-code: _isort-clear _black_fix
