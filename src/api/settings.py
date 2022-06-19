@@ -17,8 +17,8 @@ import urllib.parse
 
 from django.core.management.utils import get_random_secret_key
 
-import environ
 import django_heroku
+import environ
 
 env = environ.Env()
 
