@@ -22,7 +22,7 @@ ENV TZ America/Sao_Paulo
 # Dependencies
 WORKDIR /usr/src/app
 
-COPY ./src /usr/src/app
+COPY . /usr/src/app
 
 RUN apt-get update -yq && apt-get install -yq --no-install-recommends gettext && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip
