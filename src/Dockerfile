@@ -28,5 +28,3 @@ RUN apt-get update -yq && apt-get install -yq --no-install-recommends gettext &&
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN python manage.py collectstatic --noinput
-
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "api.wsgi"]
