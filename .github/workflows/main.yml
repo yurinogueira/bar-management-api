@@ -22,7 +22,7 @@ jobs:
 
       - name: Build and push
         working-directory: "./src"
-        run: heroku container:push -a yurinogueira-bm
+        run: heroku container:push -a yurinogueira-bm web
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
