@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres:13-bullseye
+    image: postgres:13-alpine
     container_name: bm-api-postgres-container
     restart: unless-stopped
     volumes:
