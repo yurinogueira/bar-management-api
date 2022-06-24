@@ -16,13 +16,6 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      redis:
-        image: redis:7-bullseye
-        volumes:
-          - redisdata:/data
-        ports:
-          - 6379:6379
-
       postgres:
         image: postgres:13-bullseye
         env:
@@ -80,6 +73,4 @@ jobs:
           DATABASE_DEFAULT_URL: postgres://postgres:postgres@localhost:5432/postgres?conn_max_age=600
           POSTGRES_PASSWORD: postgres
           ELASTICSEARCH_HOSTS: elasticsearch://localhost:9200
-          CACHES_DEFAULT_URL: redis://localhost:6379/0
-          CACHES_SESSIONS_URL: redis://localhost:6379/1
           CSRF_TRUSTED_ORIGINS: http://localhost:8000

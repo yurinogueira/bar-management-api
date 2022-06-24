@@ -33,11 +33,15 @@ SECRET_KEY = env.str("SECRET_KEY", default=get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = env.list(
-    "ALLOWED_HOSTS",
-    default=["0.0.0.0", "localhost", "127.0.0.1", "yn-bm.herokuapp.com"],
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["0.0.0.0", "localhost"])
+CORS_ALLOWED_ORIGINS = env.list(
+    "CORS_ALLOWED_ORIGINS",
+    default=["http://0.0.0.0:8000", "http://localhost:8000"],
 )
-CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=["*"])
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=["http://0.0.0.0:8000", "http://localhost:8000"],
+)
 
 
 # Application definition
@@ -50,6 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
+    "corsheaders",
     "rest_framework",
     "django_filters",
     "drf_spectacular",
@@ -65,6 +70,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
