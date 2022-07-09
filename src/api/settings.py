@@ -100,6 +100,10 @@ TEMPLATES = [
 # ---------------------------------------------------------------------------------------------------------------------
 ROOT_URLCONF = "api.urls"
 WSGI_APPLICATION = "api.wsgi.application"
+WEATHERAPI_URL = env.str(
+    "WEATHERAPI_URL", default="https://api.weatherapi.com/v1/current.json"
+)
+WEATHERAPI_KEY = env.str("WEATHERAPI_KEY", default="")
 
 # DIRECTORY SETTINGS
 # ---------------------------------------------------------------------------------------------------------------------

@@ -29,6 +29,7 @@ RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
 RUN pip3 install --no-cache --upgrade pip setuptools
 RUN pip3 install -r requirements.txt
+RUN python3 manage.py migrate
 RUN python3 manage.py collectstatic --noinput
 
 CMD gunicorn api.wsgi:application

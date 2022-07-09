@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import uuid
 
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -52,3 +53,14 @@ class Attachment(Timestampable, Orderable):
             "position",
             "-created_at",
         )
+
+
+@dataclass
+class WeatherData:
+    city: str
+    state: str | None
+    country: str | None
+    lat: str | None
+    lon: str | None
+    timezone: str | None
+    weather_data: dict | None
