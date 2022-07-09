@@ -59,6 +59,7 @@ urlpatterns = [
     re_path(r"^static/(?P<path>.*)$", serve, STATIC_ROOT),
     # Apps
     # ------------------------------------------------------------------------
+    path("core/", include(("core.urls", "core")), name="core"),
     path("users/", include(("users.urls", "users")), name="users"),
     path("members/", include(("members.urls", "members")), name="members"),
     # Authentication
