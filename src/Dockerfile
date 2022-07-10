@@ -19,17 +19,21 @@ ENV PIP_DEFAULT_TIMEOUT 100
 ENV DJANGO_SETTINGS_MODULE api.settings
 ENV TZ America/Sao_Paulo
 
-# DEPENDENCIES
+# SET UP WORKDIR
 WORKDIR /usr/src/app
-
 COPY ./ /usr/src/app
 
+# INSTALL PYTHON AND PIP
 RUN apk add --update --no-cache python3
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
+
+# INSTALL DEPENDENCIES
 RUN pip3 install --no-cache --upgrade pip setuptools
 RUN pip3 install -r requirements.txt
-RUN python3 manage.py migrate
+
+# COLLECTSTATIC AND APPLY MIGRATIONS
 RUN python3 manage.py collectstatic --noinput
+RUN python3 manage.py migrate
 
 CMD gunicorn api.wsgi:application
