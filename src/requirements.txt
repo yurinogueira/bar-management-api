@@ -25,4 +25,4 @@ mypy==0.961
 black==22.3.0
 model_bakery==1.6.0
 tzdata==2022.1
-types-requests==2.28.0
+types-requests==2.28.3
